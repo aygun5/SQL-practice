@@ -1,0 +1,25 @@
+CREATE DATABASE AcademyDB
+USE AcademyDB
+CREATE TABLE Students(
+[Id] INT PRIMARY KEY IDENTITY(1,1),
+[FullName] NVARCHAR(30) NOT NULL,
+[Email] NVARCHAR(30) UNIQUE,
+[BirthDate] DATETIME,
+[Gender] NVARCHAR(5) CHECK (Gender='M' or Gender='F'),
+[CreatedAt] DATETIME DEFAULT GETDATE()
+)
+
+CREATE TABLE Groups(
+[Id] INT PRIMARY KEY IDENTITY(1,1),
+[Name] NVARCHAR(10) NOT NULL,
+[Capacity] NVARCHAR(250)
+)
+
+CREATE TABLE StudentGroups(
+[Id] INT PRIMARY KEY IDENTITY(1,1),
+[StudentId] INT NOT NULL,
+[GroupId] INT NOT NULL,
+FOREIGN KEY (StudentId) REFERENCES Students(Id),
+FOREIGN KEY (GroupId) REFERENCES Groups(Id),
+UNIQUE (StudentId, GroupId)
+)
